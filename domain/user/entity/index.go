@@ -4,19 +4,20 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
+	valueObject "github.com/karamaru-alpha/ddd-sample/domain/user/valueobject"
 )
 
 // User Entity express user.
 type User struct {
-	id         ID
-	name       Name
-	mailAdress MailAdress
+	id         valueObject.ID
+	name       valueObject.Name
+	mailAdress valueObject.MailAdress
 }
 
 // NewUser Constructor generate user entity.
-func NewUser(id ID, name Name, mailAdress MailAdress) (*User, error) {
+func NewUser(id valueObject.ID, name valueObject.Name, mailAdress valueObject.MailAdress) (*User, error) {
 
-	if id == ID(uuid.Nil) {
+	if id == valueObject.ID(uuid.Nil) {
 		return nil, errors.New("UserID is null")
 	}
 	if name == "" {
