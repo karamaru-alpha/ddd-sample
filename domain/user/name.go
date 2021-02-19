@@ -12,11 +12,11 @@ type Name string
 func NewName(arg string) (*Name, error) {
 
 	if arg == "" {
-		return nil, errors.New("Username is null")
+		return nil, errors.New("UserName is null")
 	}
 
 	if utf8.RuneCountInString(arg) < 3 || 20 < utf8.RuneCountInString(arg) {
-		return nil, errors.New("Three to twenty characters username is valid")
+		return nil, errors.New("UserName should be Three to twenty characters")
 	}
 
 	name := Name(arg)

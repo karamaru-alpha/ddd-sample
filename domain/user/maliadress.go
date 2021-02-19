@@ -11,7 +11,7 @@ type MailAdress string
 func NewMailAdress(arg string) (*MailAdress, error) {
 
 	if arg == "" {
-		return nil, errors.New("MailAdress is null")
+		return nil, errors.New("UserMailAdress is null")
 	}
 
 	mailAdress := MailAdress(arg)
