@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	valueObject "github.com/karamaru-alpha/ddd-sample/domain/user/valueobject"
+	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
 )
 
 // User Entity express user.

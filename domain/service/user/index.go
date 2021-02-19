@@ -1,8 +1,8 @@
 package user
 
 import (
-	entity "github.com/karamaru-alpha/ddd-sample/domain/user/entity"
-	ur "github.com/karamaru-alpha/ddd-sample/repository/user"
+	entity "github.com/karamaru-alpha/ddd-sample/domain/entity/user"
+	ur "github.com/karamaru-alpha/ddd-sample/domain/repository/user"
 )
 
 // DomainService DomainService interface express domain activity.

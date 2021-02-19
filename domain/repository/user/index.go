@@ -1,8 +1,8 @@
 package user
 
 import (
-	entity "github.com/karamaru-alpha/ddd-sample/domain/user/entity"
-	valueObject "github.com/karamaru-alpha/ddd-sample/domain/user/valueobject"
+	entity "github.com/karamaru-alpha/ddd-sample/domain/entity/user"
+	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
 )
 
 // IRepository Repository perpetuate/rebuild user entity.
