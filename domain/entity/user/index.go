@@ -4,14 +4,14 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	valueObject "github.com/karamaru-alpha/ddd-sample/domain/user/valueobject"
+	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
 )
 
 // User Entity express user.
 type User struct {
-	id         valueObject.ID
-	name       valueObject.Name
-	mailAdress valueObject.MailAdress
+	ID         valueObject.ID
+	Name       valueObject.Name
+	MailAdress valueObject.MailAdress
 }
 
 // NewUser Constructor generate user entity.
@@ -28,9 +28,9 @@ func NewUser(id valueObject.ID, name valueObject.Name, mailAdress valueObject.Ma
 	}
 
 	user := new(User)
-	user.id = id
-	user.name = name
-	user.mailAdress = mailAdress
+	user.ID = id
+	user.Name = name
+	user.MailAdress = mailAdress
 
 	return user, nil
 }
