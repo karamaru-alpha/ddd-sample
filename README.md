@@ -1,7 +1,7 @@
 # ddd-sample
 DDDの実装サンプル
 
-## Useｒ
+## 
 - 識別子「userId」 / ユーザ名「name」 / メールアドレス「mailAdress」 で構成される
 - userIdはUUIDで自動作成されるユニークKey。
 - ユーザ名「name」は３文字以上20文字以下である必要がある。
