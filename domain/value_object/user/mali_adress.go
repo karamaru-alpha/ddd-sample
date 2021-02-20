@@ -4,10 +4,10 @@ import (
 	"errors"
 )
 
-// MailAdress Value object express user's mail adress.
+// MailAdress Value object express user's mail adress
 type MailAdress string
 
-// NewMailAdress Constructor generate user's MailAdress value object.
+// NewMailAdress Constructor generate user's MailAdress value object
 func NewMailAdress(arg string) (*MailAdress, error) {
 
 	if arg == "" {

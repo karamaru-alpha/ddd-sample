@@ -6,10 +6,10 @@ import (
 	"github.com/google/uuid"
 )
 
-// ID Value object express user's ID.
+// ID Value object express user's ID
 type ID uuid.UUID
 
-// NewID Constructor generate user's ID value object.
+// NewID Constructor generate user's ID value object
 func NewID(arg uuid.UUID) (*ID, error) {
 
 	if arg == uuid.Nil {
