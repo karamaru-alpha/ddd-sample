@@ -3,34 +3,33 @@ package user
 import (
 	"errors"
 
-	"github.com/google/uuid"
 	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
 )
 
-// User Entity express user.
+// User Entity express user
 type User struct {
 	ID         valueObject.ID
 	Name       valueObject.Name
 	MailAdress valueObject.MailAdress
 }
 
-// NewUser Constructor generate user entity.
-func NewUser(id valueObject.ID, name valueObject.Name, mailAdress valueObject.MailAdress) (*User, error) {
+// NewUser Constructor generate user entity
+func NewUser(id *valueObject.ID, name *valueObject.Name, mailAdress *valueObject.MailAdress) (*User, error) {
 
-	if id == valueObject.ID(uuid.Nil) {
+	if id == nil {
 		return nil, errors.New("UserID is null")
 	}
-	if name == "" {
+	if name == nil {
 		return nil, errors.New("UserName is null")
 	}
-	if mailAdress == "" {
+	if mailAdress == nil {
 		return nil, errors.New("UserMailAdress is null")
 	}
 
 	user := new(User)
-	user.ID = id
-	user.Name = name
-	user.MailAdress = mailAdress
+	user.ID = *id
+	user.Name = *name
+	user.MailAdress = *mailAdress
 
 	return user, nil
 }

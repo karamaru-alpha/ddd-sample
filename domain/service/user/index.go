@@ -2,29 +2,29 @@ package user
 
 import (
 	entity "github.com/karamaru-alpha/ddd-sample/domain/entity/user"
-	ur "github.com/karamaru-alpha/ddd-sample/domain/repository/user"
+	repository "github.com/karamaru-alpha/ddd-sample/domain/repository/user"
 )
 
-// DomainService DomainService interface express domain activity.
-type DomainService interface {
+// IDomainService Inteface of DomainService express domain activity
+type IDomainService interface {
 	Exists(user *entity.User) (bool, error)
 }
 
 type domainService struct {
-	repository ur.IRepository
+	repository repository.IRepository
 }
 
-// NewDomainService create DomainService
-func NewDomainService(userRepository ur.IRepository) DomainService {
+// NewDomainService Function create DomainService
+func NewDomainService(userRepository repository.IRepository) IDomainService {
 	return &domainService{
 		repository: userRepository,
 	}
 }
 
-// Exists DomainService check user duplicate.
+// Exists DomainService check user duplicate
 func (ds domainService) Exists(user *entity.User) (bool, error) {
 
-	dupUser, err := ds.repository.Find(user.MailAdress)
+	dupUser, err := ds.repository.Find(&user.MailAdress)
 	if err != nil {
 		return false, err
 	}

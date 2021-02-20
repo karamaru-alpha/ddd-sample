@@ -5,7 +5,8 @@ import (
 	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
 )
 
-// IRepository Repository perpetuate/rebuild user entity.
+// IRepository Interface of Repository perpetuate/rebuild user entity
 type IRepository interface {
-	Find(valueObject.MailAdress) (*entity.User, error)
+	Save(*entity.User) error
+	Find(*valueObject.MailAdress) (*entity.User, error)
 }
