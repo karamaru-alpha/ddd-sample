@@ -10,6 +10,7 @@ import (
 
 func main() {
 
+	// TODO Implement server init function on another layer.
 	e := echo.New()
 	e.Use(
 		middleware.Logger(),
