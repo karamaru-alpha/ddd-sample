@@ -1,6 +1,24 @@
 version: "3"
 services:
-  app:
+  db:
+    container_name: ddd-sample-db
+    build:
+      # Dockerfileのあるディレクトリのパスを指定
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      # mysqlの永続化
+      - ./docker/mysql/db/mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ddd_sample
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+
+  api:
+    container_name: ddd-sample-api
     build:
       context: .
       dockerfile: ./docker/api/Dockerfile
@@ -8,3 +26,5 @@ services:
       - ./:/go/src/github.com/karamaru-alpha/ddd-sample
     ports:
       - "8080:8080"
+    depends_on:
+      - db
