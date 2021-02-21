@@ -1,6 +1,6 @@
 module github.com/karamaru-alpha/ddd-sample
 
-go 1.14
+go 1.16
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
