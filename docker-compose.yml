@@ -1,0 +1,10 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/api/Dockerfile
+    volumes:
+      - ./:/go/src/github.com/karamaru-alpha/ddd-sample
+    ports:
+      - "8080:8080"
