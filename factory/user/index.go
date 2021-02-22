@@ -1,7 +1,10 @@
 package user
 
 import (
-	"github.com/google/uuid"
+	"math/rand"
+	"time"
+
+	"github.com/oklog/ulid"
 
 	entity "github.com/karamaru-alpha/ddd-sample/domain/entity/user"
 	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
@@ -22,12 +25,9 @@ func NewFactory() IFactory {
 // Create Factory help to generate UserEntity.
 func (factory) Create(name *valueObject.Name, mailAdress *valueObject.MailAdress) (*entity.User, error) {
 
-	generatedUUID, err := uuid.NewRandom()
-	if err != nil {
-		return nil, err
-	}
+	generatedULID := generateULID()
 
-	userID, err := valueObject.NewID(generatedUUID)
+	userID, err := valueObject.NewID(generatedULID)
 	if err != nil {
 		return nil, err
 	}
@@ -38,4 +38,10 @@ func (factory) Create(name *valueObject.Name, mailAdress *valueObject.MailAdress
 	}
 
 	return user, nil
+}
+
+func generateULID() ulid.ULID {
+	t := time.Now()
+	entropy := ulid.Monotonic(rand.New(rand.NewSource(t.UnixNano())), 0)
+	return ulid.MustNew(ulid.Timestamp(t), entropy)
 }

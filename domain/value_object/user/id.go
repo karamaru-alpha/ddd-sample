@@ -3,16 +3,17 @@ package user
 import (
 	"errors"
 
-	"github.com/google/uuid"
+	"github.com/oklog/ulid"
 )
 
 // ID Value object express user's ID
-type ID uuid.UUID
+type ID ulid.ULID
 
 // NewID Constructor generate user's ID value object
-func NewID(arg uuid.UUID) (*ID, error) {
+func NewID(arg ulid.ULID) (*ID, error) {
+	var zeroValueULID ulid.ULID
 
-	if arg == uuid.Nil {
+	if arg.Compare(zeroValueULID) == 0 {
 		return nil, errors.New("UserID is null")
 	}
 
