@@ -3,13 +3,12 @@ services:
   db:
     container_name: ddd-sample-db
     build:
-      # Dockerfileのあるディレクトリのパスを指定
       context: .
       dockerfile: ./docker/mysql/Dockerfile
     ports:
       - "3306:3306"
     volumes:
-      # mysqlの永続化
+      - ./docker/mysql/db:/docker-entrypoint-initdb.d
       - ./docker/mysql/db/mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
