@@ -28,8 +28,8 @@ func NewController(userApplicationService applicationService.IApplicationService
 func (uc controller) Create(c echo.Context) error {
 	type (
 		request struct {
-			Name       string `json:"name"`
-			MailAdress string `json:"mail_adress"`
+			Name        string `json:"name"`
+			MailAddress string `json:"mail_address"`
 		}
 		response struct {
 			AuthToken string `json:"auth_token"`
@@ -41,7 +41,7 @@ func (uc controller) Create(c echo.Context) error {
 		return err
 	}
 
-	if err := uc.applicationService.Register(requestBody.Name, requestBody.MailAdress); err != nil {
+	if err := uc.applicationService.Register(requestBody.Name, requestBody.MailAddress); err != nil {
 		return err
 	}
 

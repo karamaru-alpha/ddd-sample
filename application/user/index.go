@@ -11,7 +11,7 @@ import (
 
 // IApplicationService Interface of ApplicationService realize usecase
 type IApplicationService interface {
-	Register(name string, mailAdress string) error
+	Register(name string, mailAddress string) error
 }
 
 type applicationService struct {
@@ -34,19 +34,19 @@ func NewApplicationService(
 }
 
 // Register ApplicationService realize account registration
-func (as applicationService) Register(name string, mailAdress string) error {
+func (as applicationService) Register(name string, mailAddress string) error {
 
 	userName, err := valueObject.NewName(name)
 	if err != nil {
 		return err
 	}
 
-	userMailAdress, err := valueObject.NewMailAdress(mailAdress)
+	userMailAddress, err := valueObject.NewMailAddress(mailAddress)
 	if err != nil {
 		return err
 	}
 
-	user, err := as.factory.Create(userName, userMailAdress)
+	user, err := as.factory.Create(userName, userMailAddress)
 	if err != nil {
 		return err
 	}

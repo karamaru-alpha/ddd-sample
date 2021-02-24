@@ -4,11 +4,11 @@ DDD の実装サンプル
 
 ## User
 
-- 識別子「userId」 / ユーザ名「name」 / メールアドレス「mailAdress」 で構成される
+- 識別子「userId」 / ユーザ名「name」 / メールアドレス「mailAddress」 で構成される
 - userId は ULID で自動作成されるユニーク Key。
 - ユーザ名「name」は３文字以上 20 文字以下である必要がある。
-- メールアドレス「mailAdress」はユニークである必要がある。
-- name / mailAdress 共に更新可能である。
+- メールアドレス「mailAddress」はユニークである必要がある。
+- name / mailAddress 共に更新可能である。
 
 ## Circle
 

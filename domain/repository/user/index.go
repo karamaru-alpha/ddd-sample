@@ -8,5 +8,5 @@ import (
 // IRepository Interface of Repository perpetuate/rebuild user entity
 type IRepository interface {
 	Save(*entity.User) error
-	Find(*valueObject.MailAdress) (*entity.User, error)
+	Find(*valueObject.MailAddress) (*entity.User, error)
 }

@@ -24,7 +24,7 @@ func NewDomainService(userRepository repository.IRepository) IDomainService {
 // Exists DomainService check user duplicate
 func (ds domainService) Exists(user *entity.User) (bool, error) {
 
-	dupUser, err := ds.repository.Find(&user.MailAdress)
+	dupUser, err := ds.repository.Find(&user.MailAddress)
 	if err != nil {
 		return false, err
 	}
