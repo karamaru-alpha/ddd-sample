@@ -40,8 +40,9 @@ func (factory) Create(name *valueObject.Name, mailAddress *valueObject.MailAddre
 	return user, nil
 }
 
-func generateULID() ulid.ULID {
+// generateULID Function generate ULID string
+func generateULID() string {
 	t := time.Now()
 	entropy := ulid.Monotonic(rand.New(rand.NewSource(t.UnixNano())), 0)
-	return ulid.MustNew(ulid.Timestamp(t), entropy)
+	return ulid.MustNew(ulid.Timestamp(t), entropy).String()
 }
