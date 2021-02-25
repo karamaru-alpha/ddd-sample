@@ -14,7 +14,7 @@ services:
       MYSQL_DATABASE: ddd_sample
       MYSQL_USER: root
       MYSQL_PASSWORD: password
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: mysqld
 
   api:
     container_name: ddd-sample-api
