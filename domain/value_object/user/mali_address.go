@@ -17,3 +17,8 @@ func NewMailAddress(arg string) (*MailAddress, error) {
 	mailAddress := MailAddress(arg)
 	return &mailAddress, nil
 }
+
+// ToString Convert UserMailAddress to String
+func (mailAddress MailAddress) ToString() string {
+	return string(mailAddress)
+}
