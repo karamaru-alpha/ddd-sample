@@ -49,10 +49,5 @@ func ConvertEntity(DTOUser *User) (*entity.User, error) {
 		return nil, err
 	}
 
-	entityUser, err := entity.NewUser(entityUserID, entityUserName, entityUserMailAddress)
-	if err != nil {
-		return nil, err
-	}
-
-	return entityUser, nil
+	return entity.NewUser(entityUserID, entityUserName, entityUserMailAddress)
 }
