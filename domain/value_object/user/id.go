@@ -20,3 +20,8 @@ func NewID(arg ulid.ULID) (*ID, error) {
 	id := ID(arg)
 	return &id, nil
 }
+
+// ToString Convert ULID to String
+func (id ID) ToString() string {
+	return ulid.ULID(id).String()
+}

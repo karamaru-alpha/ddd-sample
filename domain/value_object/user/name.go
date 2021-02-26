@@ -22,3 +22,8 @@ func NewName(arg string) (*Name, error) {
 	name := Name(arg)
 	return &name, nil
 }
+
+// ToString Convert UserName to String
+func (name Name) ToString() string {
+	return string(name)
+}
