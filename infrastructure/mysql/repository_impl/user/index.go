@@ -24,10 +24,7 @@ func NewRepositoryImpl(db *gorm.DB) repository.IRepository {
 
 // Save Persist user object
 func (uri repositoryImpl) Save(user *entity.User) error {
-	DTOUser, err := dto.ConvertDTO(user)
-	if err != nil {
-		return err
-	}
+	DTOUser := dto.ConvertDTO(user)
 
 	return uri.db.Create(DTOUser).Error
 }
