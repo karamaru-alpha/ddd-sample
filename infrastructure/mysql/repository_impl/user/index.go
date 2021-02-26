@@ -4,10 +4,10 @@ import (
 	"errors"
 
 	"github.com/jinzhu/gorm"
+
 	entity "github.com/karamaru-alpha/ddd-sample/domain/entity/user"
 	repository "github.com/karamaru-alpha/ddd-sample/domain/repository/user"
 	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
-
 	dto "github.com/karamaru-alpha/ddd-sample/infrastructure/mysql/dto/user"
 )
 
@@ -29,11 +29,7 @@ func (uri repositoryImpl) Save(user *entity.User) error {
 		return err
 	}
 
-	if err = uri.db.Create(DTOUser).Error; err != nil {
-		return err
-	}
-
-	return nil
+	return uri.db.Create(DTOUser).Error
 }
 
 // TODO implement receive many argument
@@ -48,10 +44,5 @@ func (uri repositoryImpl) Find(mailAddress *valueObject.MailAddress) (*entity.Us
 		return nil, err
 	}
 
-	user, err := dto.ConvertEntity(&DTOUser)
-	if err != nil {
-		return nil, err
-	}
-
-	return user, nil
+	return dto.ConvertEntity(&DTOUser)
 }
