@@ -1,9 +1,10 @@
 package user
 
 import (
+	"github.com/oklog/ulid"
+
 	entity "github.com/karamaru-alpha/ddd-sample/domain/entity/user"
 	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
-	"github.com/oklog/ulid"
 )
 
 // User DTO about user entity
