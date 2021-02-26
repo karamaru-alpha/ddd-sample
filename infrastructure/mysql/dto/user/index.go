@@ -1,8 +1,6 @@
 package user
 
 import (
-	"errors"
-
 	entity "github.com/karamaru-alpha/ddd-sample/domain/entity/user"
 	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
 	"github.com/oklog/ulid"
@@ -15,24 +13,17 @@ type User struct {
 	MailAddress string
 }
 
-// NewUser Constructor generate DTO of User
-func NewUser(id string, name string, mailAddress string) (*User, error) {
-	if id == "" {
-		return nil, errors.New("UserID is null")
-	}
-	if name == "" {
-		return nil, errors.New("UserName is null")
-	}
-	if mailAddress == "" {
-		return nil, errors.New("UserMailAddress is null")
-	}
+// ConvertDTO Convert Entity to DTO about User
+func ConvertDTO(entityUser *entity.User) *User {
+	DTOUserID := entityUser.ID.ToString()
+	DTOUserName := entityUser.Name.ToString()
+	DTOUserMailAddress := entityUser.MailAddress.ToString()
 
-	user := new(User)
-	user.ID = id
-	user.Name = name
-	user.MailAddress = mailAddress
-
-	return user, nil
+	return &User{
+		ID:          DTOUserID,
+		Name:        DTOUserName,
+		MailAddress: DTOUserMailAddress,
+	}
 }
 
 // ConvertEntity Convert DTO to Entity about User
@@ -63,18 +54,4 @@ func ConvertEntity(DTOUser *User) (*entity.User, error) {
 	}
 
 	return entityUser, nil
-}
-
-// ConvertDTO Convert Entity to DTO about User
-func ConvertDTO(entityUser *entity.User) (*User, error) {
-	DTOUserID := entityUser.ID.ToString()
-	DTOUserName := entityUser.Name.ToString()
-	DTOUserMailAddress := entityUser.MailAddress.ToString()
-
-	DTOUser, err := NewUser(DTOUserID, DTOUserName, DTOUserMailAddress)
-	if err != nil {
-		return nil, err
-	}
-
-	return DTOUser, nil
 }
