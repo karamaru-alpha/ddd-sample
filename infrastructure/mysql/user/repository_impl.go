@@ -19,11 +19,11 @@ func NewRepositoryImpl(db *gorm.DB) domainModel.IRepository {
 	}
 }
 
-// Save Persist user object
+// Save Create or Update user object
 func (uri repositoryImpl) Save(user *domainModel.User) error {
 	DTOUser := ConvertDTO(user)
 
-	return uri.db.Create(DTOUser).Error
+	return uri.db.Save(DTOUser).Error
 }
 
 // TODO implement receive many argument

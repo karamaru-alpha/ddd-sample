@@ -21,7 +21,6 @@ func NewFactory() IFactory {
 
 // Create Factory help to generate UserEntity.
 func (factory) Create(name *Name, mailAddress *MailAddress) (*User, error) {
-
 	generatedULID := generateULID()
 
 	userID, err := NewID(generatedULID)
@@ -29,12 +28,7 @@ func (factory) Create(name *Name, mailAddress *MailAddress) (*User, error) {
 		return nil, err
 	}
 
-	user, err := NewUser(userID, name, mailAddress)
-	if err != nil {
-		return nil, err
-	}
-
-	return user, nil
+	return NewUser(userID, name, mailAddress)
 }
 
 func generateULID() ulid.ULID {

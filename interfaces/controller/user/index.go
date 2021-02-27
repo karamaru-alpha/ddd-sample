@@ -41,7 +41,12 @@ func (uc controller) Create(c echo.Context) error {
 		return err
 	}
 
-	if err := uc.applicationService.Register(requestBody.Name, requestBody.MailAddress); err != nil {
+	createCommand := applicationService.CreateCommand{
+		Name:        requestBody.Name,
+		MailAddress: requestBody.MailAddress,
+	}
+
+	if err := uc.applicationService.Register(createCommand); err != nil {
 		return err
 	}
 

@@ -9,7 +9,7 @@ import (
 
 // IApplicationService Interface of ApplicationService realize usecase
 type IApplicationService interface {
-	Register(name string, mailAddress string) error
+	Register(CreateCommand) error
 }
 
 type applicationService struct {
@@ -32,14 +32,14 @@ func NewApplicationService(
 }
 
 // Register ApplicationService realize account registration
-func (as applicationService) Register(name string, mailAddress string) error {
+func (as applicationService) Register(createCommand CreateCommand) error {
 
-	userName, err := domainModel.NewName(name)
+	userName, err := domainModel.NewName(createCommand.Name)
 	if err != nil {
 		return err
 	}
 
-	userMailAddress, err := domainModel.NewMailAddress(mailAddress)
+	userMailAddress, err := domainModel.NewMailAddress(createCommand.MailAddress)
 	if err != nil {
 		return err
 	}
