@@ -3,8 +3,7 @@ package user
 import (
 	"github.com/oklog/ulid"
 
-	entity "github.com/karamaru-alpha/ddd-sample/domain/entity/user"
-	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
+	domainModel "github.com/karamaru-alpha/ddd-sample/domain/model/user"
 )
 
 // User DTO about user entity
@@ -15,7 +14,7 @@ type User struct {
 }
 
 // ConvertDTO Convert Entity to DTO about User
-func ConvertDTO(entityUser *entity.User) *User {
+func ConvertDTO(entityUser *domainModel.User) *User {
 	DTOUserID := entityUser.ID.ToString()
 	DTOUserName := entityUser.Name.ToString()
 	DTOUserMailAddress := entityUser.MailAddress.ToString()
@@ -28,26 +27,26 @@ func ConvertDTO(entityUser *entity.User) *User {
 }
 
 // ConvertEntity Convert DTO to Entity about User
-func ConvertEntity(DTOUser *User) (*entity.User, error) {
+func ConvertEntity(DTOUser *User) (*domainModel.User, error) {
 	parsedULID, err := ulid.Parse(DTOUser.ID)
 	if err != nil {
 		return nil, err
 	}
 
-	entityUserID, err := valueObject.NewID(parsedULID)
+	entityUserID, err := domainModel.NewID(parsedULID)
 	if err != nil {
 		return nil, err
 	}
 
-	entityUserName, err := valueObject.NewName(DTOUser.Name)
+	entityUserName, err := domainModel.NewName(DTOUser.Name)
 	if err != nil {
 		return nil, err
 	}
 
-	entityUserMailAddress, err := valueObject.NewMailAddress(DTOUser.MailAddress)
+	entityUserMailAddress, err := domainModel.NewMailAddress(DTOUser.MailAddress)
 	if err != nil {
 		return nil, err
 	}
 
-	return entity.NewUser(entityUserID, entityUserName, entityUserMailAddress)
+	return domainModel.NewUser(entityUserID, entityUserName, entityUserMailAddress)
 }

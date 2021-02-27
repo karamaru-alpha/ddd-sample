@@ -5,14 +5,11 @@ import (
 	"time"
 
 	"github.com/oklog/ulid"
-
-	entity "github.com/karamaru-alpha/ddd-sample/domain/entity/user"
-	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
 )
 
-// IFactory Interface of Factory help to generate Object.
+// IFactory Interface of Factory help to generate User Entity
 type IFactory interface {
-	Create(name *valueObject.Name, mailAddress *valueObject.MailAddress) (*entity.User, error)
+	Create(*Name, *MailAddress) (*User, error)
 }
 
 type factory struct{}
@@ -23,16 +20,16 @@ func NewFactory() IFactory {
 }
 
 // Create Factory help to generate UserEntity.
-func (factory) Create(name *valueObject.Name, mailAddress *valueObject.MailAddress) (*entity.User, error) {
+func (factory) Create(name *Name, mailAddress *MailAddress) (*User, error) {
 
 	generatedULID := generateULID()
 
-	userID, err := valueObject.NewID(generatedULID)
+	userID, err := NewID(generatedULID)
 	if err != nil {
 		return nil, err
 	}
 
-	user, err := entity.NewUser(userID, name, mailAddress)
+	user, err := NewUser(userID, name, mailAddress)
 	if err != nil {
 		return nil, err
 	}

@@ -3,10 +3,8 @@ package user
 import (
 	"errors"
 
-	repository "github.com/karamaru-alpha/ddd-sample/domain/repository/user"
+	domainModel "github.com/karamaru-alpha/ddd-sample/domain/model/user"
 	domainService "github.com/karamaru-alpha/ddd-sample/domain/service/user"
-	valueObject "github.com/karamaru-alpha/ddd-sample/domain/value_object/user"
-	factory "github.com/karamaru-alpha/ddd-sample/factory/user"
 )
 
 // IApplicationService Interface of ApplicationService realize usecase
@@ -16,15 +14,15 @@ type IApplicationService interface {
 
 type applicationService struct {
 	domainService domainService.IDomainService
-	repository    repository.IRepository
-	factory       factory.IFactory
+	repository    domainModel.IRepository
+	factory       domainModel.IFactory
 }
 
 // NewApplicationService Function create user ApplicationService
 func NewApplicationService(
 	userDomainService domainService.IDomainService,
-	userRepository repository.IRepository,
-	userFactory factory.IFactory,
+	userRepository domainModel.IRepository,
+	userFactory domainModel.IFactory,
 ) IApplicationService {
 	return &applicationService{
 		domainService: userDomainService,
@@ -36,12 +34,12 @@ func NewApplicationService(
 // Register ApplicationService realize account registration
 func (as applicationService) Register(name string, mailAddress string) error {
 
-	userName, err := valueObject.NewName(name)
+	userName, err := domainModel.NewName(name)
 	if err != nil {
 		return err
 	}
 
-	userMailAddress, err := valueObject.NewMailAddress(mailAddress)
+	userMailAddress, err := domainModel.NewMailAddress(mailAddress)
 	if err != nil {
 		return err
 	}

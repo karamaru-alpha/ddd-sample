@@ -11,17 +11,17 @@ import (
 	"github.com/karamaru-alpha/ddd-sample/infrastructure/mysql"
 
 	userApplicationService "github.com/karamaru-alpha/ddd-sample/application/user"
-	userController "github.com/karamaru-alpha/ddd-sample/controller/user"
+	userDomainModel "github.com/karamaru-alpha/ddd-sample/domain/model/user"
 	userDomainService "github.com/karamaru-alpha/ddd-sample/domain/service/user"
-	userFactory "github.com/karamaru-alpha/ddd-sample/factory/user"
-	userRepositoryImpl "github.com/karamaru-alpha/ddd-sample/infrastructure/mysql/repository_impl/user"
+	userRepositoryImpl "github.com/karamaru-alpha/ddd-sample/infrastructure/mysql/user"
+	userController "github.com/karamaru-alpha/ddd-sample/interfaces/controller/user"
 )
 
 func main() {
 	// TODO implement DI by google/wire
 	userRepositoryImpl := userRepositoryImpl.NewRepositoryImpl(mysql.Conn)
 	userDomainService := userDomainService.NewDomainService(userRepositoryImpl)
-	userFactory := userFactory.NewFactory()
+	userFactory := userDomainModel.NewFactory()
 	userApplicationService := userApplicationService.NewApplicationService(userDomainService, userRepositoryImpl, userFactory)
 	userController := userController.NewController(userApplicationService)
 
