@@ -9,10 +9,8 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// Conn 各repositoryで利用するDB接続(Connection)情報
-var Conn *gorm.DB
-
-func init() {
+// ConnectGorm Connect Mysql through gorm
+func ConnectGorm() *gorm.DB {
 	DBMS := "mysql"
 	USER := "root"
 	PASS := "password"
@@ -28,8 +26,7 @@ func init() {
 	)
 
 	count := 0
-	var err error
-	Conn, err = gorm.Open(DBMS, CONNECT)
+	connection, err := gorm.Open(DBMS, CONNECT)
 	if err != nil {
 		for {
 			if err == nil {
@@ -44,12 +41,13 @@ func init() {
 				fmt.Println("DB接続失敗")
 				panic(err)
 			}
-			Conn, err = gorm.Open(DBMS, CONNECT)
+			connection, err = gorm.Open(DBMS, CONNECT)
 		}
 	}
 
-	Conn.LogMode(true)
-	Conn.Set("gorm:table_options", "ENGINE=InnoDB")
+	connection.LogMode(true)
+	connection.Set("gorm:table_options", "ENGINE=InnoDB")
 
 	fmt.Println("DB接続成功")
+	return connection
 }

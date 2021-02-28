@@ -31,7 +31,7 @@ func (uri repositoryImpl) Save(user *domainModel.User) error {
 func (uri repositoryImpl) Find(mailAddress *domainModel.MailAddress) (*domainModel.User, error) {
 	var DTOUser User
 
-	if err := uri.db.First(DTOUser, "mail_address = ?", mailAddress.ToString()).Error; err != nil {
+	if err := uri.db.Where("mail_address = ?", mailAddress.ToString()).First(&DTOUser).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, nil
 		}
