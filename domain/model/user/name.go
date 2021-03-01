@@ -15,7 +15,7 @@ func NewName(arg string) (*Name, error) {
 		return nil, errors.New("UserName is null")
 	}
 
-	if utf8.RuneCountInString(arg) < 3 || 20 < utf8.RuneCountInString(arg) {
+	if utf8.RuneCountInString(arg) < 3 || utf8.RuneCountInString(arg) > 20 {
 		return nil, errors.New("UserName should be Three to twenty characters")
 	}
 
