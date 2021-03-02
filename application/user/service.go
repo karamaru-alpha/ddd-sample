@@ -44,7 +44,12 @@ func (as applicationService) Register(createCommand CreateCommand) error {
 		return err
 	}
 
-	user, err := as.factory.Create(userName, userMailAddress)
+	userPlainPassword, err := domainModel.NewPlainPassword(createCommand.PlainPassword)
+	if err != nil {
+		return err
+	}
+
+	user, err := as.factory.Create(userName, userMailAddress, userPlainPassword)
 	if err != nil {
 		return err
 	}
