@@ -8,9 +8,10 @@ import (
 
 // User DTO about user entity
 type User struct {
-	ID          string `gorm:"primary_key"`
-	Name        string
-	MailAddress string
+	ID             string `gorm:"primary_key"`
+	Name           string
+	MailAddress    string
+	HashedPassword string
 }
 
 // ConvertDTO Convert Entity to DTO about User
@@ -18,11 +19,13 @@ func ConvertDTO(entityUser *domainModel.User) *User {
 	DTOUserID := entityUser.ID.ToString()
 	DTOUserName := entityUser.Name.ToString()
 	DTOUserMailAddress := entityUser.MailAddress.ToString()
+	DTOUserHashedPassword := entityUser.HashedPassword.ToString()
 
 	return &User{
-		ID:          DTOUserID,
-		Name:        DTOUserName,
-		MailAddress: DTOUserMailAddress,
+		ID:             DTOUserID,
+		Name:           DTOUserName,
+		MailAddress:    DTOUserMailAddress,
+		HashedPassword: DTOUserHashedPassword,
 	}
 }
 
@@ -48,5 +51,16 @@ func ConvertEntity(DTOUser *User) (*domainModel.User, error) {
 		return nil, err
 	}
 
-	return domainModel.NewUser(entityUserID, entityUserName, entityUserMailAddress)
+	// TODO Prevent from memory copy
+	entityUserHashedPassword, err := domainModel.NewHashedPassword([]byte(DTOUser.HashedPassword))
+	if err != nil {
+		return nil, err
+	}
+
+	return domainModel.NewUser(
+		entityUserID,
+		entityUserName,
+		entityUserMailAddress,
+		entityUserHashedPassword,
+	)
 }
