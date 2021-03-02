@@ -30,6 +30,7 @@ func (uc controller) Create(c echo.Context) error {
 		request struct {
 			Name        string `json:"name"`
 			MailAddress string `json:"mail_address"`
+			Password    string `json:"password"`
 		}
 		response struct {
 			AuthToken string `json:"auth_token"`
@@ -42,8 +43,9 @@ func (uc controller) Create(c echo.Context) error {
 	}
 
 	createCommand := applicationService.CreateCommand{
-		Name:        requestBody.Name,
-		MailAddress: requestBody.MailAddress,
+		Name:          requestBody.Name,
+		MailAddress:   requestBody.MailAddress,
+		PlainPassword: requestBody.Password,
 	}
 
 	if err := uc.applicationService.Register(createCommand); err != nil {
