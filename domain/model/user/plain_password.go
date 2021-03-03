@@ -28,6 +28,8 @@ func NewPlainPassword(arg string) (*PlainPassword, error) {
 	return &plainPassword, nil
 }
 
+// NOTE Domain layer shouldn't notice technical requirements?
+
 // ToHash Convert plainPassword string to []byte
 func (plainPassword PlainPassword) ToHash() ([]byte, error) {
 	return bcrypt.GenerateFromPassword([]byte(plainPassword), bcrypt.DefaultCost)
