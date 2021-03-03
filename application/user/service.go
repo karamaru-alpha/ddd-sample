@@ -9,7 +9,7 @@ import (
 
 // IApplicationService Interface of ApplicationService realize usecase
 type IApplicationService interface {
-	Register(CreateCommand) error
+	Register(CreateCommand) (string, error)
 }
 
 type applicationService struct {
@@ -32,35 +32,40 @@ func NewApplicationService(
 }
 
 // Register ApplicationService realize account registration
-func (as applicationService) Register(createCommand CreateCommand) error {
+func (as applicationService) Register(createCommand CreateCommand) (string, error) {
 
 	userName, err := domainModel.NewName(createCommand.Name)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	userMailAddress, err := domainModel.NewMailAddress(createCommand.MailAddress)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	userPlainPassword, err := domainModel.NewPlainPassword(createCommand.PlainPassword)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	user, err := as.factory.Create(userName, userMailAddress, userPlainPassword)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	isDup, err := as.domainService.Exists(user)
 	if err != nil {
-		return err
+		return "", err
 	}
 	if isDup {
-		return errors.New("This user already exists")
+		return "", errors.New("This user already exists")
 	}
 
-	return as.repository.Save(user)
+	// TODO Implement transaction
+	if err := as.repository.Save(user); err != nil {
+		return "", err
+	}
+
+	return GenerateJWT(&user.ID)
 }
