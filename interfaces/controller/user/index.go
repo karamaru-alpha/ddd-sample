@@ -48,12 +48,12 @@ func (uc controller) Create(c echo.Context) error {
 		PlainPassword: requestBody.Password,
 	}
 
-	if err := uc.applicationService.Register(createCommand); err != nil {
+	token, err := uc.applicationService.Register(createCommand)
+	if err != nil {
 		return err
 	}
 
-	// TODO implement JWT
 	return c.JSON(http.StatusCreated, &response{
-		AuthToken: "foo bar token",
+		AuthToken: token,
 	})
 }
