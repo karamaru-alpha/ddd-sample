@@ -31,35 +31,40 @@ func (as interactor) Handle(inputData InputData) OutputData {
 
 	userName, err := domainModel.NewName(inputData.Name)
 	if err != nil {
-		return OutputData{Token: "", Err: err}
+		return OutputData{Err: err}
 	}
 
 	userMailAddress, err := domainModel.NewMailAddress(inputData.MailAddress)
 	if err != nil {
-		return OutputData{Token: "", Err: err}
+		return OutputData{Err: err}
 	}
 
 	userPlainPassword, err := domainModel.NewPlainPassword(inputData.PlainPassword)
 	if err != nil {
-		return OutputData{Token: "", Err: err}
+		return OutputData{Err: err}
 	}
 
-	user, err := as.factory.Create(userName, userMailAddress, userPlainPassword)
+	userHashedPassword, err := PasswordEncoder(*userPlainPassword)
 	if err != nil {
-		return OutputData{Token: "", Err: err}
+		return OutputData{Err: err}
+	}
+
+	user, err := as.factory.Create(userName, userMailAddress, userHashedPassword)
+	if err != nil {
+		return OutputData{Err: err}
 	}
 
 	isDup, err := as.domainService.Exists(user)
 	if err != nil {
-		return OutputData{Token: "", Err: err}
+		return OutputData{Err: err}
 	}
 	if isDup {
-		return OutputData{Token: "", Err: errors.New("This user already exists")}
+		return OutputData{Err: errors.New("This user already exists")}
 	}
 
 	// TODO Implement transaction
 	if err := as.repository.Save(user); err != nil {
-		return OutputData{Token: "", Err: err}
+		return OutputData{Err: err}
 	}
 
 	token, err := JWTGenerator(&user.ID)

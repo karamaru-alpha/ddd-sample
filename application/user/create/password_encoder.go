@@ -6,7 +6,13 @@ import (
 	domainModel "github.com/karamaru-alpha/ddd-sample/domain/model/user"
 )
 
-// PasswordEncoder Encode plain password to hash
-func PasswordEncoder(plainPassword domainModel.PlainPassword) (domainModel.HashedPassword, error) {
-	return bcrypt.GenerateFromPassword([]byte(string(plainPassword)), bcrypt.DefaultCost)
+// PasswordEncoder Encode plain password to hash about user
+func PasswordEncoder(plainPassword domainModel.PlainPassword) (*domainModel.HashedPassword, error) {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(string(plainPassword)), bcrypt.DefaultCost)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return domainModel.NewHashedPassword(hashedPassword)
 }
