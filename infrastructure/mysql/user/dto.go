@@ -16,10 +16,10 @@ type User struct {
 
 // ConvertDTO Convert Entity to DTO about User
 func ConvertDTO(entityUser *domainModel.User) *User {
-	DTOUserID := entityUser.ID.ToString()
-	DTOUserName := entityUser.Name.ToString()
-	DTOUserMailAddress := entityUser.MailAddress.ToString()
-	DTOUserHashedPassword := entityUser.HashedPassword.ToString()
+	DTOUserID := ulid.ULID(entityUser.ID).String()
+	DTOUserName := string(entityUser.Name)
+	DTOUserMailAddress := string(entityUser.MailAddress)
+	DTOUserHashedPassword := string(entityUser.HashedPassword)
 
 	return &User{
 		ID:             DTOUserID,

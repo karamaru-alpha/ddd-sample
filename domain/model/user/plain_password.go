@@ -3,8 +3,6 @@ package user
 import (
 	"errors"
 	"regexp"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 // PlainPassword Value object express user's PlainPassword
