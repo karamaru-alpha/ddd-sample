@@ -7,7 +7,7 @@ import (
 
 	"github.com/karamaru-alpha/ddd-sample/infrastructure/mysql"
 
-	application "github.com/karamaru-alpha/ddd-sample/application/user"
+	application "github.com/karamaru-alpha/ddd-sample/application/user/create"
 	domainModel "github.com/karamaru-alpha/ddd-sample/domain/model/user"
 	domainService "github.com/karamaru-alpha/ddd-sample/domain/service/user"
 	repositoryImpl "github.com/karamaru-alpha/ddd-sample/infrastructure/mysql/user"
@@ -18,7 +18,7 @@ import (
 func InitializeDI() controller.IController {
 	wire.Build(
 		controller.NewController,
-		application.NewApplicationService,
+		application.NewInteractor,
 		repositoryImpl.NewRepositoryImpl,
 		domainService.NewDomainService,
 		domainModel.NewFactory,
