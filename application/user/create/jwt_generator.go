@@ -9,8 +9,8 @@ import (
 	domainModel "github.com/karamaru-alpha/ddd-sample/domain/model/user"
 )
 
-// GenerateJWT Generate JWT token
-func GenerateJWT(userID *domainModel.ID) (string, error) {
+// JWTGenerator Generate JWT token
+func JWTGenerator(userID *domainModel.ID) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	claims := token.Claims.(jwt.MapClaims)

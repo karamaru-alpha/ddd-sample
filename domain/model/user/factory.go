@@ -9,7 +9,7 @@ import (
 
 // IFactory Interface of Factory help to generate User Entity
 type IFactory interface {
-	Create(*Name, *MailAddress, *PlainPassword) (*User, error)
+	Create(*Name, *MailAddress, *HashedPassword) (*User, error)
 }
 
 type factory struct{}
@@ -20,7 +20,7 @@ func NewFactory() IFactory {
 }
 
 // Create Factory help to generate UserEntity.
-func (factory) Create(name *Name, mailAddress *MailAddress, plainPassword *PlainPassword) (*User, error) {
+func (factory) Create(name *Name, mailAddress *MailAddress, hashedPassword *HashedPassword) (*User, error) {
 	// ID
 	generatedULID, err := generateULID()
 	if err != nil {
@@ -31,18 +31,7 @@ func (factory) Create(name *Name, mailAddress *MailAddress, plainPassword *Plain
 		return nil, err
 	}
 
-	// HashPassword
-	hashedPassword, err := plainPassword.ToHash()
-	if err != nil {
-		return nil, err
-	}
-
-	userHashedPassword, err := NewHashedPassword(hashedPassword)
-	if err != nil {
-		return nil, err
-	}
-
-	return NewUser(userID, name, mailAddress, userHashedPassword)
+	return NewUser(userID, name, mailAddress, hashedPassword)
 }
 
 func generateULID() (ulid.ULID, error) {

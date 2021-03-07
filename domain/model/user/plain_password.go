@@ -3,8 +3,6 @@ package user
 import (
 	"errors"
 	"regexp"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 // PlainPassword Value object express user's PlainPassword
@@ -26,11 +24,4 @@ func NewPlainPassword(arg string) (*PlainPassword, error) {
 
 	plainPassword := PlainPassword(arg)
 	return &plainPassword, nil
-}
-
-// NOTE Domain layer shouldn't notice technical requirements?
-
-// ToHash Convert plainPassword string to []byte
-func (plainPassword PlainPassword) ToHash() ([]byte, error) {
-	return bcrypt.GenerateFromPassword([]byte(plainPassword), bcrypt.DefaultCost)
 }

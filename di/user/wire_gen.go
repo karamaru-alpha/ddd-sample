@@ -6,7 +6,7 @@
 package user
 
 import (
-	user5 "github.com/karamaru-alpha/ddd-sample/application/user"
+	user5 "github.com/karamaru-alpha/ddd-sample/application/user/create"
 	user4 "github.com/karamaru-alpha/ddd-sample/domain/model/user"
 	user3 "github.com/karamaru-alpha/ddd-sample/domain/service/user"
 	"github.com/karamaru-alpha/ddd-sample/infrastructure/mysql"
@@ -22,7 +22,7 @@ func InitializeDI() user.IController {
 	iRepository := user2.NewRepositoryImpl(db)
 	iDomainService := user3.NewDomainService(iRepository)
 	iFactory := user4.NewFactory()
-	iApplicationService := user5.NewApplicationService(iDomainService, iRepository, iFactory)
-	iController := user.NewController(iApplicationService)
+	iInputPort := user5.NewInteractor(iDomainService, iRepository, iFactory)
+	iController := user.NewController(iInputPort)
 	return iController
 }

@@ -17,8 +17,3 @@ func NewHashedPassword(arg []byte) (*HashedPassword, error) {
 	hashedPassword := HashedPassword(arg)
 	return &hashedPassword, nil
 }
-
-// ToString Convert UserHashedPassword to String
-func (hashedPassword HashedPassword) ToString() string {
-	return string(hashedPassword)
-}

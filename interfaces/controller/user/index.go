@@ -5,7 +5,7 @@ import (
 
 	"github.com/labstack/echo"
 
-	applicationService "github.com/karamaru-alpha/ddd-sample/application/user"
+	applicationService "github.com/karamaru-alpha/ddd-sample/application/user/create"
 )
 
 // IController Interface of Controller handle request
@@ -14,13 +14,13 @@ type IController interface {
 }
 
 type controller struct {
-	applicationService applicationService.IApplicationService
+	applicationService applicationService.IInputPort
 }
 
 // NewController Fuction create user controller
-func NewController(userApplicationService applicationService.IApplicationService) IController {
+func NewController(applicationService applicationService.IInputPort) IController {
 	return &controller{
-		applicationService: userApplicationService,
+		applicationService,
 	}
 }
 
@@ -42,18 +42,18 @@ func (uc controller) Create(c echo.Context) error {
 		return err
 	}
 
-	createCommand := applicationService.CreateCommand{
+	inputData := applicationService.InputData{
 		Name:          requestBody.Name,
 		MailAddress:   requestBody.MailAddress,
 		PlainPassword: requestBody.Password,
 	}
 
-	token, err := uc.applicationService.Register(createCommand)
-	if err != nil {
-		return err
+	outputData := uc.applicationService.Handle(inputData)
+	if outputData.Err != nil {
+		return outputData.Err
 	}
 
 	return c.JSON(http.StatusCreated, &response{
-		AuthToken: token,
+		AuthToken: outputData.Token,
 	})
 }
